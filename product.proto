@@ -1,0 +1,59 @@
+syntax = "proto3"; // Use Proto3 syntax
+package product;
+
+// Definition of messages for products
+message Product {
+  string id = 1; // Product ID
+  string name = 2; // Product name
+  string description = 3; // Product description
+}
+
+message GetProductRequest {
+  string product_id = 1; // Product ID
+}
+
+message GetProductResponse {
+  Product product = 1; // Found product
+}
+
+message SearchProductsRequest {} // Request to search for all products
+
+message SearchProductsResponse {
+  repeated Product products = 1; // List of products
+}
+
+message CreateProductRequest {
+  string name = 1; // Product name
+  string description = 2; // Product description
+}
+
+message CreateProductResponse {
+  Product product = 1; // Created product
+}
+
+message DeleteProductRequest { // Request to delete product
+  string product_id = 1; // Product ID to delete
+}
+
+message DeleteProductResponse { // Response to deletion
+  string message = 1; // Confirmation message
+}
+
+message UpdateProductRequest {
+  string product_id = 1; // Product ID to update
+  string name = 2; // New name
+  string description = 3; // New description
+}
+
+message UpdateProductResponse {
+  Product product = 1; // Updated product
+}
+
+// Product service with full CRUD operations
+service ProductService {
+  rpc GetProduct(GetProductRequest) returns (GetProductResponse); // Get a product by ID
+  rpc SearchProducts(SearchProductsRequest) returns (SearchProductsResponse); // Get all products
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse); // Create a product
+  rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse); // Delete a product by ID
+  rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse); // Update a product by ID
+}

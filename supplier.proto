@@ -1,0 +1,59 @@
+syntax = "proto3"; // Use Proto3 syntax
+package supplier;
+
+// Definition of messages for suppliers
+message Supplier {
+  string id = 1; // Supplier ID
+  string name = 2; // Supplier name
+  string description = 3; // Supplier description
+}
+
+message GetSupplierRequest {
+  string supplier_id = 1; // Supplier ID
+}
+
+message GetSupplierResponse {
+  Supplier supplier = 1; // Found supplier
+}
+
+message SearchSuppliersRequest {} // Request to search for all suppliers
+
+message SearchSuppliersResponse {
+  repeated Supplier suppliers = 1; // List of suppliers
+}
+
+message CreateSupplierRequest {
+  string name = 1; // Supplier name
+  string description = 2; // Supplier description
+}
+
+message CreateSupplierResponse {
+  Supplier supplier = 1; // Created supplier
+}
+
+message DeleteSupplierRequest {
+  string supplier_id = 1; // Supplier ID to delete
+}
+
+message DeleteSupplierResponse {
+  string message = 1; // Deletion confirmation message
+}
+
+message UpdateSupplierRequest { // Request to update supplier
+  string supplier_id = 1; // Supplier ID
+  string name = 2; // New name
+  string description = 3; // New description
+}
+
+message UpdateSupplierResponse { // Response to update
+  Supplier supplier = 1; // Updated supplier
+}
+
+// Supplier service with all CRUD operations
+service SupplierService {
+  rpc GetSupplier(GetSupplierRequest) returns (GetSupplierResponse); // Get a supplier by ID
+  rpc SearchSuppliers(SearchSuppliersRequest) returns (SearchSuppliersResponse); // Get all suppliers
+  rpc CreateSupplier(CreateSupplierRequest) returns (CreateSupplierResponse); // Create a supplier
+  rpc DeleteSupplier(DeleteSupplierRequest) returns (DeleteSupplierResponse); // Delete a supplier by ID
+  rpc UpdateSupplier(UpdateSupplierRequest) returns (UpdateSupplierResponse); // Update a supplier by ID
+}
